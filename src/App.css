@@ -1,47 +1,57 @@
-/* ===========================
-   ESTILO GENERAL
-   =========================== */
+/* ======================================
+   ESTILO GLOBAL ACCESIBLE (+65 años)
+====================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .app-container {
-  max-width: 600px;
+  max-width: 900px;
   margin: auto;
   padding: 20px;
   text-align: center;
   font-family: Arial, sans-serif;
 }
 
+/* Títulos Grandes */
 .header h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
+  font-weight: bold;
 }
 
 .header p {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  margin-top: 5px;
 }
 
-/* Botón del asistente de voz */
+/* Sección contenido centrada */
+.contenido,
+.pantalla {
+  margin-top: 25px;
+}
+
+/* Botón del asistente */
 .assistant-btn {
-  padding: 20px;
-  font-size: 1.6rem;
+  padding: 28px;
+  font-size: 1.8rem;
   background-color: #5CB85C;
   color: white;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   width: 100%;
 }
 
-/* Contenedor de pantallas */
-.pantalla {
-  margin-top: 20px;
-}
-
-/* Botones grandes reutilizables */
+/* Botones grandes */
 .btn-grande {
-  padding: 20px;
+  padding: 26px;
   width: 100%;
-  font-size: 1.5rem;
-  margin-top: 10px;
-  border-radius: 12px;
+  font-size: 1.7rem;
+  margin-top: 14px;
+  border-radius: 14px;
   background-color: #4A90E2;
   color: white;
   cursor: pointer;
@@ -52,75 +62,90 @@
   background-color: #D9534F;
 }
 
+/* Último comando */
+.ultimo-comando {
+  font-size: 1.4rem;
+  margin-top: 30px;
+}
+
+/* Footer */
 footer p {
   margin-top: 40px;
   color: #666;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
-/* ===========================
-   RESPONSIVE
-   =========================== */
-
-/* TELÉFONOS PEQUEÑOS (menos de 380px) */
-@media (max-width: 380px) {
-  .header h1 {
-    font-size: 2rem;
-  }
-
-  .assistant-btn {
-    font-size: 1.3rem;
-    padding: 16px;
-  }
-
-  .btn-grande {
-    font-size: 1.2rem;
-    padding: 16px;
-  }
-
-  .pantalla p,
-  .pantalla li {
-    font-size: 1.1rem;
-  }
+/* =====================
+   INDICADOR ESCUCHANDO
+===================== */
+.escuchando {
+  background: #3cbc3c;
+  color: white;
+  font-size: 1.6rem;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 15px;
+  animation: pulso 1s infinite;
 }
 
-/* TELÉFONOS GRANDES Y TABLETS (381px - 768px) */
-@media (min-width: 381px) and (max-width: 768px) {
+@keyframes pulso {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* =====================
+   NOTIFICACIÓN
+===================== */
+.notificacion {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4A90E2;
+  color: white;
+  padding: 16px 26px;
+  border-radius: 14px;
+  font-size: 1.5rem;
+  animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ======================================
+   RESPONSIVE MÓVIL, TABLET, LAPTOP Y PC
+====================================== */
+
+/* Teléfonos */
+@media (max-width: 480px) {
   .header h1 {
-    font-size: 2.3rem;
+    font-size: 2.2rem;
   }
-
-  .assistant-btn {
-    font-size: 1.5rem;
-  }
-
+  .assistant-btn,
   .btn-grande {
     font-size: 1.4rem;
+    padding: 18px;
   }
 }
 
-/* TABLETS – pantallas medianas (768px - 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
+/* Tablets */
+@media (min-width: 481px) and (max-width: 900px) {
   .app-container {
     max-width: 700px;
   }
-
-  .btn-grande {
-    font-size: 1.6rem;
-  }
 }
 
-/* ESCRITORIO GRANDE */
-@media (min-width: 1025px) {
+/* Laptops y PC */
+@media (min-width: 900px) {
   .app-container {
-    max-width: 800px;
+    max-width: 900px;
   }
-
-  .header h1 {
-    font-size: 3rem;
-  }
-
-  .btn-grande {
-    font-size: 1.7rem;
+  .btn-grande,
+  .assistant-btn {
+    font-size: 1.9rem;
+    padding: 30px;
   }
 }
