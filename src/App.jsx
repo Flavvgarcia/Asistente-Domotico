@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [pantalla, setPantalla] = useState("inicio");
   const [mensaje, setMensaje] = useState("");
 
   const iniciarAsistente = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
       alert("Tu navegador no soporta reconocimiento de voz.");
@@ -18,7 +20,6 @@ function App() {
 
     recognition.onresult = (event) => {
       const texto = event.results[0][0].transcript;
-      console.log("Usuario dijo:", texto);
       setMensaje(texto);
       procesarComando(texto);
     };
@@ -28,15 +29,17 @@ function App() {
     texto = texto.toLowerCase();
 
     if (texto.includes("luz") || texto.includes("luces")) {
-      alert("OK, encendiendo las luces (simulado)");
+      setPantalla("luces");
     } else if (texto.includes("recordatorio")) {
-      alert("Creando un recordatorio (simulado)");
+      setPantalla("recordatorios");
     } else if (texto.includes("emergencia")) {
-      alert("⚠ Llamando a emergencia (simulado)");
+      setPantalla("emergencia");
     } else {
       alert("No entendí ese comando.");
     }
   };
+
+  const volverInicio = () => setPantalla("inicio");
 
   return (
     <div className="app-container">
@@ -45,15 +48,84 @@ function App() {
         <p>Ayuda accesible para adultos mayores</p>
       </header>
 
-      <main className="menu">
-        <button className="menu-btn" onClick={iniciarAsistente}>
-          🔊 Asistente de Voz
-        </button>
+      {/* ======================
+          PANTALLA PRINCIPAL
+      ====================== */}
+      {pantalla === "inicio" && (
+        <main>
+          <button className="assistant-btn" onClick={iniciarAsistente}>
+            🔊 Activar Asistente de Voz
+          </button>
 
-        <button className="menu-btn">💡 Control de Luces</button>
-        <button className="menu-btn">📅 Recordatorios</button>
-        <button className="menu-btn">🚨 Botón de Emergencia</button>
-      </main>
+          <button className="btn-grande" onClick={() => setPantalla("luces")}>
+            💡 Control de Luces
+          </button>
+
+          <button
+            className="btn-grande"
+            onClick={() => setPantalla("recordatorios")}
+          >
+            📅 Recordatorios
+          </button>
+
+          <button
+            className="btn-grande rojo"
+            onClick={() => setPantalla("emergencia")}
+          >
+            🚨 Botón de Emergencia
+          </button>
+        </main>
+      )}
+
+      {/* ======================
+          PANTALLA LUCES
+      ====================== */}
+      {pantalla === "luces" && (
+        <div className="pantalla">
+          <h2>💡 Control de Luces</h2>
+          <p>Simulación de encendido y apagado</p>
+
+          <button className="btn-grande">Encender luces</button>
+          <button className="btn-grande">Apagar luces</button>
+
+          <button className="btn-grande rojo" onClick={volverInicio}>
+            ⬅ Volver
+          </button>
+        </div>
+      )}
+
+      {/* ======================
+          PANTALLA RECORDATORIOS
+      ====================== */}
+      {pantalla === "recordatorios" && (
+        <div className="pantalla">
+          <h2>📅 Recordatorios</h2>
+          <p>Aquí puedes crear recordatorios simulados</p>
+
+          <button className="btn-grande">Agregar recordatorio</button>
+          <button className="btn-grande">Ver recordatorios</button>
+
+          <button className="btn-grande rojo" onClick={volverInicio}>
+            ⬅ Volver
+          </button>
+        </div>
+      )}
+
+      {/* ======================
+          PANTALLA EMERGENCIA
+      ====================== */}
+      {pantalla === "emergencia" && (
+        <div className="pantalla">
+          <h2>🚨 Emergencia</h2>
+          <p>Simulación de llamada de emergencia</p>
+
+          <button className="btn-grande rojo">📞 Llamar a emergencias</button>
+
+          <button className="btn-grande" onClick={volverInicio}>
+            ⬅ Volver
+          </button>
+        </div>
+      )}
 
       <p style={{ marginTop: "20px", fontSize: "20px" }}>
         Último comando: <strong>{mensaje}</strong>
